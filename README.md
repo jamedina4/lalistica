@@ -1,5 +1,4 @@
 # Gestor de Tareas - Manual de Uso
-
 ## 📋 Descripción
 
 Aplicación web para gestionar tareas de diferentes tipos: diarias, semanales, mensuales y proyectos.
