@@ -1,0 +1,22 @@
+Investigación inicial
+	Análisis de mercado
+	Estudio de competidores
+	Definir público objetivo
+Diseño del producto
+	Crear mockups
+	Validar con usuarios
+	Iterar diseños
+Desarrollo técnico
+	Configurar entorno
+	Desarrollar funcionalidades core
+	Realizar pruebas unitarias
+	Integración continua
+Marketing y comunicación
+	Crear página web
+	Preparar redes sociales
+	Estrategia de lanzamiento
+Lanzamiento
+	Beta testing
+	Corrección de bugs
+	Lanzamiento oficial
+	Recopilar feedback

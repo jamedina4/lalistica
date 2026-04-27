@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Gestor de Tareas</h1>
+            <div class="header-actions">
+                <span id="cloudStatus" class="cloud-status" title="Estado de sincronización">☁️ Local</span>
+                <button id="autoSaveBtn" class="btn btn-secondary" title="Activa el guardado automático en archivo">💾 Auto-guardado: OFF</button>
+                <button id="exportBtn" class="btn btn-secondary">Exportar Datos</button>
+                <button id="importBtn" class="btn btn-secondary">Importar Datos</button>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="daily">Tareas Diarias</button>
+            <button class="tab-btn" data-tab="weekly">Tareas Semanales</button>
+            <button class="tab-btn" data-tab="monthly">Tareas Mensuales</button>
+            <button class="tab-btn" data-tab="projects">Proyectos</button>
+            <button class="tab-btn" data-tab="archived">Archivo</button>
+        </div>
+
+        <!-- Tareas Diarias -->
+        <div id="daily" class="tab-content active">
+            <div class="section-header">
+                <h2>Tareas Diarias</h2>
+                <div class="section-info">
+                    <span id="dailyProgress">0% completado</span>
+                    <button class="btn btn-primary" onclick="taskManager.loadTasksFromFile('daily')">
+                        📁 Cargar desde archivo
+                    </button>
+                    <button class="btn btn-warning" onclick="taskManager.resetTasks('daily')">
+                        🔄 Resetear
+                    </button>
+                </div>
+            </div>
+            <div id="dailyTasks" class="tasks-container"></div>
+            <div class="file-input-area">
+                <input type="file" id="dailyFile" accept=".txt" style="display: none;">
+                <label for="dailyFile" class="file-label">Seleccionar archivo de tareas diarias (.txt)</label>
+            </div>
+        </div>
+
+        <!-- Tareas Semanales -->
+        <div id="weekly" class="tab-content">
+            <div class="section-header">
+                <h2>Tareas Semanales</h2>
+                <div class="section-info">
+                    <span id="weeklyProgress">0% completado</span>
+                    <button class="btn btn-primary" onclick="taskManager.loadTasksFromFile('weekly')">
+                        📁 Cargar desde archivo
+                    </button>
+                    <button class="btn btn-warning" onclick="taskManager.resetTasks('weekly')">
+                        🔄 Resetear
+                    </button>
+                </div>
+            </div>
+            <div id="weeklyTasks" class="tasks-container"></div>
+            <div class="file-input-area">
+                <input type="file" id="weeklyFile" accept=".txt" style="display: none;">
+                <label for="weeklyFile" class="file-label">Seleccionar archivo de tareas semanales (.txt)</label>
+            </div>
+        </div>
+
+        <!-- Tareas Mensuales -->
+        <div id="monthly" class="tab-content">
+            <div class="section-header">
+                <h2>Tareas Mensuales</h2>
+                <div class="section-info">
+                    <span id="monthlyProgress">0% completado</span>
+                    <button class="btn btn-primary" onclick="taskManager.loadTasksFromFile('monthly')">
+                        📁 Cargar desde archivo
+                    </button>
+                    <button class="btn btn-warning" onclick="taskManager.resetTasks('monthly')">
+                        🔄 Resetear
+                    </button>
+                </div>
+            </div>
+            <div id="monthlyTasks" class="tasks-container"></div>
+            <div class="file-input-area">
+                <input type="file" id="monthlyFile" accept=".txt" style="display: none;">
+                <label for="monthlyFile" class="file-label">Seleccionar archivo de tareas mensuales (.txt)</label>
+            </div>
+        </div>
+
+        <!-- Proyectos -->
+        <div id="projects" class="tab-content">
+            <div class="section-header">
+                <h2>Proyectos</h2>
+                <button class="btn btn-success" onclick="taskManager.addNewProject()">
+                    ➕ Nuevo Proyecto
+                </button>
+            </div>
+            <div id="projectsList" class="projects-list"></div>
+        </div>
+
+        <!-- Archivo -->
+        <div id="archived" class="tab-content">
+            <div class="section-header">
+                <h2>Proyectos Archivados</h2>
+                <button class="btn btn-danger" onclick="taskManager.clearArchive()">
+                    🗑️ Limpiar Archivo
+                </button>
+            </div>
+            <div id="archivedProjects" class="archived-list"></div>
+        </div>
+    </div>
+
+    <!-- Modal para confirmaciones -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Confirmación</h3>
+            <p id="modalMessage"></p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="taskManager.closeModal()">Cancelar</button>
+                <button class="btn btn-primary" id="modalConfirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para nuevo proyecto -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <h3>Nuevo Proyecto</h3>
+            <input type="text" id="projectName" class="input-field" placeholder="Nombre del proyecto">
+            <div class="file-input-area">
+                <input type="file" id="projectFile" accept=".txt" style="display: none;">
+                <label for="projectFile" class="file-label">Seleccionar archivo de tareas (.txt)</label>
+                <span id="projectFileName"></span>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="taskManager.closeProjectModal()">Cancelar</button>
+                <button class="btn btn-success" onclick="taskManager.createProject()">Crear</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
