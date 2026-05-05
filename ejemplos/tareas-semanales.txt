@@ -1,20 +1,3 @@
-Hacer la compra semanal
-	Frutas y verduras
-	Lácteos
-	Carne y pescado
-	Productos de limpieza
-Limpiar el hogar a fondo
-	Aspirar todas las habitaciones
-	Limpiar baños
-	Cambiar sábanas
-	Limpiar cocina
-Revisar finanzas personales
-	Revisar gastos de la semana
-	Actualizar presupuesto
-	Pagar facturas pendientes
-Reunión familiar
-Planificar menú de la semana
-Hacer backup de documentos importantes
-Mantenimiento del coche
-	Revisar neumáticos
-	Comprobar niveles
+Rellenar propuestas retro
+Preparar DEV Process Review
+Team sync

@@ -1,22 +1,25 @@
-Investigación inicial
-	Análisis de mercado
-	Estudio de competidores
-	Definir público objetivo
-Diseño del producto
-	Crear mockups
-	Validar con usuarios
-	Iterar diseños
-Desarrollo técnico
-	Configurar entorno
-	Desarrollar funcionalidades core
-	Realizar pruebas unitarias
-	Integración continua
-Marketing y comunicación
-	Crear página web
-	Preparar redes sociales
-	Estrategia de lanzamiento
-Lanzamiento
-	Beta testing
-	Corrección de bugs
-	Lanzamiento oficial
-	Recopilar feedback
+Refinar el work item.	
+	Se realiza el análisis técnico y funcional del work item.
+	Dividir en tareas de implementación y testing (sub-tasks).
+	Añadir el título y la descripción en cada tarea.
+	Estimar las tareas en una sesión de estimación con todo el equipo.
+	Añadir las estimaciones a las tareas de Jira.
+	Asignar las tareas.
+Definir la estrategia de testing.
+	Test cases manuales.
+	Exploratories.
+	Test cases automáticos. Los flujos de los test cases automáticos también se cubren con exploratories.
+	Se traslada la estrategia de testing a Jira (a las sub-tasks correspondientes).
+Implementación.
+	Implementación.
+	CR interna.
+	Documento de las Pull Request.
+	CR de Roche
+	Se coordina todo lo necesario entre development y testing.
+Definir el Test Plan.
+Functional Review.
+Closure meeting.
+Preliminary Verification.
+Integración.
+	Completar PR
+	Revisar Tests de Integración
